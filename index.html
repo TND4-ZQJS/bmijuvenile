@@ -1,202 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Juvenile Build Guideline</title>
-    <style>
-        /* Apple-Inspired Styling */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-            background-color: #f5f5f7;
-            color: #1d1d1f;
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-        }
-        .container {
-            max-width: 600px;
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            margin: auto;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        input, select {
-            padding: 10px;
-            margin: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            width: 80%;
-            font-size: 16px;
-        }
-        button {
-            background: #0071e3;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 20px;
-            width: 80%;
-        }
-        button:hover {
-            background: #005bb5;
-        }
-        #result {
-            margin-top: 20px;
-            font-weight: bold;
-            font-size: 18px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Juvenile Build Guideline</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      background-color: #f5f5f7;
+      color: #1d1d1f;
+      text-align: center;
+      padding: 20px;
+      margin: 0;
+    }
+    .container {
+      max-width: 600px;
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    input, select {
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 80%;
+      font-size: 16px;
+    }
+    button {
+      background: #0071e3;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 80%;
+    }
+    button:hover {
+      background: #005bb5;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
 <div class="container">
-    <h2>Juvenile Build Guideline (ANB 3–16)</h2>
-    <label>Date of Birth: <input type="date" id="dob" onchange="updateANB()"></label><br>
-    <label>Or Enter Age Next Birthday (3-16): <input type="number" id="anb" min="3" max="16" oninput="clearDOB()"></label><br>
-    <label>Gender:
-        <select id="gender">
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-        </select>
-    </label><br>
-    <label>Height (cm): <input type="number" id="height"></label><br>
-    <label>Weight (kg): <input type="number" id="weight"></label><br>
-    <button onclick="checkBuild()">Check Guideline</button>
-    <div id="result"></div>
+  <h2>Juvenile Build Guideline (ANB 3–16)</h2>
+
+  <label>Date of Birth: <input type="date" id="dob" onchange="updateANB()"></label><br>
+  <label>Or Enter Age Next Birthday (3–16): <input type="number" id="anb" min="3" max="16" oninput="clearDOB()"></label><br>
+  <label>Gender:
+    <select id="gender">
+      <option value="Female">Female</option>
+      <option value="Male">Male</option>
+    </select>
+  </label><br>
+  <label>Height (cm): <input type="number" id="height"></label><br>
+  <label>Weight (kg): <input type="number" id="weight"></label><br>
+
+  <button onclick="checkBuild()">Check Guideline</button>
+
+  <div id="result"></div>
 </div>
 
 <script>
 const buildTable = {
-    3: {
-        Female: { height: [80, 93], bmi: [13.7, 18.1] },
-        Male: { height: [82, 94], bmi: [14.2, 18.3] }
-    },
-    4: {
-        Female: { height: [88, 103], bmi: [13.5, 17.8] },
-        Male: { height: [89, 104], bmi: [13.7, 17.8] }
-    },
-    5: {
-        Female: { height: [94, 111], bmi: [13.2, 17.9] },
-        Male: { height: [95, 112], bmi: [13.4, 17.6] }
-    },
-    6: {
-        Female: { height: [100, 119], bmi: [13.1, 18.1] },
-        Male: { height: [101, 119], bmi: [13.3, 17.7] }
-    },
-    7: {
-        Female: { height: [106, 123], bmi: [13.4, 18.8] },
-        Male: { height: [107, 124], bmi: [13.7, 18.4] }
-    },
-    8: {
-        Female: { height: [112, 131], bmi: [13.4, 19.6] },
-        Male: { height: [113, 131], bmi: [13.7, 19.2] }
-    },
-    9: {
-        Female: { height: [118, 137], bmi: [13.5, 20.6] },
-        Male: { height: [118, 137], bmi: [13.8, 20.0] }
-    },
-    10: {
-        Female: { height: [123, 143], bmi: [13.7, 21.8] },
-        Male: { height: [123, 144], bmi: [14.0, 21.0] }
-    },
-    11: {
-        Female: { height: [127, 150], bmi: [14.0, 23.0] },
-        Male: { height: [128, 150], bmi: [14.2, 22.0] }
-    },
-    12: {
-        Female: { height: [132, 156], bmi: [14.4, 24.0] },
-        Male: { height: [132, 155], bmi: [14.5, 23.2] }
-    },
-    13: {
-        Female: { height: [139, 163], bmi: [14.8, 25.2] },
-        Male: { height: [137, 161], bmi: [15.0, 24.2] }
-    },
-    14: {
-        Female: { height: [145, 168], bmi: [15.3, 26.2] },
-        Male: { height: [143, 170], bmi: [15.5, 25.2] }
-    },
-    15: {
-        Female: { height: [150, 171], bmi: [15.8, 27.2] },
-        Male: { height: [150, 176], bmi: [16.0, 26.0] }
-    },
-    16: {
-        Female: { height: [151, 173], bmi: [16.3, 28.0] },
-        Male: { height: [156, 182], bmi: [16.5, 26.8] }
-    }
+  3: { Female: { height: [80, 93], bmi: [13.7, 18.1] }, Male: { height: [82, 94], bmi: [14.2, 18.3] } },
+  4: { Female: { height: [88, 103], bmi: [13.5, 17.8] }, Male: { height: [89, 104], bmi: [13.7, 17.8] } },
+  5: { Female: { height: [94, 111], bmi: [13.2, 17.9] }, Male: { height: [95, 112], bmi: [13.4, 17.6] } },
+  6: { Female: { height: [100, 119], bmi: [13.1, 18.1] }, Male: { height: [101, 119], bmi: [13.3, 17.7] } },
+  7: { Female: { height: [106, 123], bmi: [13.4, 18.8] }, Male: { height: [107, 124], bmi: [13.7, 18.4] } },
+  8: { Female: { height: [112, 131], bmi: [13.4, 19.6] }, Male: { height: [113, 131], bmi: [13.7, 19.2] } },
+  9: { Female: { height: [118, 137], bmi: [13.5, 20.6] }, Male: { height: [118, 137], bmi: [13.8, 20.0] } },
+  10: { Female: { height: [123, 143], bmi: [13.7, 21.8] }, Male: { height: [123, 144], bmi: [14.0, 21.0] } },
+  11: { Female: { height: [127, 150], bmi: [14.0, 23.0] }, Male: { height: [128, 150], bmi: [14.2, 22.0] } },
+  12: { Female: { height: [132, 156], bmi: [14.4, 24.0] }, Male: { height: [132, 155], bmi: [14.5, 23.2] } },
+  13: { Female: { height: [139, 163], bmi: [14.8, 25.2] }, Male: { height: [137, 161], bmi: [15.0, 24.2] } },
+  14: { Female: { height: [145, 168], bmi: [15.3, 26.2] }, Male: { height: [143, 170], bmi: [15.5, 25.2] } },
+  15: { Female: { height: [150, 171], bmi: [15.8, 27.2] }, Male: { height: [150, 176], bmi: [16.0, 26.0] } },
+  16: { Female: { height: [151, 173], bmi: [16.3, 28.0] }, Male: { height: [156, 182], bmi: [16.5, 26.8] } }
 };
 
 function updateANB() {
-    const dob = new Date(document.getElementById('dob').value);
-    const today = new Date();
-    if (isNaN(dob)) return;
-    let age = today.getFullYear() - dob.getFullYear();
-    const birthThisYear = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
-    if (today < birthThisYear) age++;
-    document.getElementById('anb').value = age;
+  const dob = new Date(document.getElementById('dob').value);
+  const today = new Date();
+  if (isNaN(dob)) return;
+  let age = today.getFullYear() - dob.getFullYear();
+  const birthThisYear = new Date(today.getFullYear(), dob.getMonth(), dob.getDate());
+  if (today < birthThisYear) age++;
+  document.getElementById('anb').value = age;
 }
 
 function clearDOB() {
-    document.getElementById('dob').value = '';
+  document.getElementById('dob').value = '';
 }
 
 function checkBuild() {
-    const anb = parseInt(document.getElementById('anb').value.trim());
-    const gender = document.getElementById('gender').value;
-    const heightInput = document.getElementById('height').value.trim();
-    const weightInput = document.getElementById('weight').value.trim();
+  const anb = parseInt(document.getElementById('anb').value.trim());
+  const gender = document.getElementById('gender').value;
+  const heightInput = document.getElementById('height').value.trim();
+  const weightInput = document.getElementById('weight').value.trim();
+  const result = document.getElementById('result');
 
-    const result = document.getElementById('result');
+  const height = parseFloat(heightInput);
+  const weight = parseFloat(weightInput);
 
-    // Convert to numbers
-    const height = parseFloat(heightInput);
-    const weight = parseFloat(weightInput);
+  if (!anb || !height || !weight || isNaN(anb) || isNaN(height) || isNaN(weight)) {
+    result.textContent = "❌ Please fill in all fields with valid numbers.";
+    return;
+  }
 
-    // Validation: Check if values are valid numbers
-    if (!anb || !height || !weight || isNaN(anb) || isNaN(height) || isNaN(weight)) {
-        result.textContent = "❌ Please fill in all fields with valid numbers.";
-        return;
-    }
+  if (!buildTable[anb] || !buildTable[anb][gender]) {
+    result.textContent = "❌ No guideline available for the given age or gender.";
+    return;
+  }
 
-    // Check if ANB is supported
-    if (!buildTable[anb] || !buildTable[anb][gender]) {
-        result.textContent = "❌ No guideline available for the given age or gender.";
-        return;
-    }
+  const bmi = weight / ((height / 100) ** 2);
+  const bmiRounded = bmi.toFixed(1);
+  const { height: hRange, bmi: bRange } = buildTable[anb][gender];
 
-    // Calculate BMI
-    const bmi = weight / ((height / 100) ** 2);
-    const { height: hRange, bmi: bRange } = buildTable[anb][gender];
+  const heightOk = height >= hRange[0] && height <= hRange[1];
+  const bmiOk = bmi >= bRange[0] && bmi <= bRange[1];
 
-    const heightOk = height >= hRange[0] && height <= hRange[1];
-    const bmiOk = bmi >= bRange[0] && bmi <= bRange[1];
-
-    const bmiRounded = bmi.toFixed(1);
-
-if (heightOk && bmiOk) {
-  result.innerHTML = `✅ Pass<br>BMI: ${bmiRounded}`;
-} else {
-  result.innerHTML = `❌ Not within guideline.<br>
-    BMI: ${bmiRounded}<br>
-    Allowed Height Range: ${hRange[0]}–${hRange[1]} cm<br>
-    Allowed BMI Range: ${bRange[0]}–${bRange[1]}`;
-}
-
-    const { height: hRange, bmi: bRange } = buildTable[anb][gender];
-    const bmi = weight / ((height / 100) ** 2);
-
-    const heightOk = height >= hRange[0] && height <= hRange[1];
-    const bmiOk = bmi >= bRange[0] && bmi <= bRange[1];
-
-    if (heightOk && bmiOk) {
-        result.textContent = "✅ Pass";
-    } else {
-        result.innerHTML = `❌ Not within guideline.<br>
-        Allowed Height Range: ${hRange[0]}–${hRange[1]} cm<br>
-        Allowed BMI Range: ${bRange[0]}–${bRange[1]}`;
-    }
+  if (heightOk && bmiOk) {
+    result.innerHTML = `✅ Pass<br>BMI: <strong>${bmiRounded}</strong>`;
+  } else {
+    result.innerHTML = `❌ Not within guideline<br>
+      BMI: <strong>${bmiRounded}</strong><br>
+      Allowed Height Range: ${hRange[0]}–${hRange[1]} cm<br>
+      Allowed BMI Range: ${bRange[0]}–${bRange[1]}`;
+  }
 }
 </script>
 </body>
